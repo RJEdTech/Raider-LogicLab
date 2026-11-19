@@ -1,0 +1,55 @@
+/* Lesson 8: The square of opposition */
+(function(){
+const box=(id,x,y,L,a,b)=>`<g id="${id}"><rect x="${x-95}" y="${y-38}" width="190" height="76" rx="10" class="box" style="stroke-width:2.5"/><text x="${x-74}" y="${y+10}" text-anchor="middle" class="lbl" style="font-size:30px;fill:var(--rj)">${L}</text><text x="${x+14}" y="${y-6}" text-anchor="middle" class="lbl-m" style="font-size:16px">${a}</text><text x="${x+14}" y="${y+16}" text-anchor="middle" class="lbl-m" style="font-size:16px">${b}</text></g>`;
+const badge=(id,x,y)=>`<g id="${id}g" opacity="0"><circle cx="${x}" cy="${y}" r="20" class="box" style="stroke-width:2.5"/><text id="${id}" x="${x}" y="${y+8}" text-anchor="middle" class="lbl">?</text></g>`;
+const ln=(id,x1,y1,x2,y2)=>`<line id="${id}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="ink" stroke-width="3" opacity=".35"/>`;
+LL.add({id:'square',unit:'ari',n:8,minutes:12,
+title:'The square of opposition: what follows from what',
+teaser:'So all of us failed? No. Some of you didn’t pass.',
+card:'If “all” is false, is “none” true? (No.) The square shows how A, E, I and O statements push on each other.',
+goal:'You will be able to name the opposite of any A, E, I or O statement (its contradictory), and explain why one counterexample is enough to sink an “all” claim.',
+hook:'When you want to prove someone wrong about “always,” “never,” “all” or “none,” you need much less than you think. When someone wants to prove you wrong, the same is true.',
+real:{t:'How fact-checkers sink an “all” claim',h:'<p>In 2015 Volkswagen advertised “clean diesel” cars that met emissions limits. Researchers at West Virginia University tested a few on real roads and found them putting out up to about 35 times the allowed nitrogen oxides. They didn’t need to test every car. A claim like “all our diesels meet the standard” is sunk by its contradictory, “some don’t,” and a few cars proved it.</p><p>The scandal led to recalls of about 11 million cars worldwide and billions of dollars in penalties. The square in this lesson is the logic of that move: to refute <b>all</b>, find <b>one that isn’t</b>.</p>',src:'International Council on Clean Transportation & West Virginia University study (2014); U.S. EPA notice of violation (Sept. 18, 2015)'},
+joke:{cast:['Teacher','Class'],lines:[
+ {w:'Teacher',s:'All of you passed the test.'},
+ {w:'Class',r:1,s:'YES!'},
+ {w:'Teacher',s:'That was false. I wanted to see your faces.'},
+ {w:'Class',r:1,s:'So… all of us failed?'},
+ {w:'Teacher',s:'No. Some of you didn’t pass.'},
+ {w:'Class',r:1,s:'That’s worse. Now we all have to wonder.'}],
+ point:'<p>The class makes the classic mistake: the opposite of “all passed” isn’t “all failed.” It’s “<b>some didn’t pass</b>.” Those two sentences are <b>contradictories</b>: exactly one of them is true.</p><p>“All passed” and “none passed” are a different pair, <b>contraries</b>: they can’t both be true, but they can both be false, which is exactly what happened.</p>'},
+learn:{intro:'Put the four statements at the corners of a square. Each line between two corners is a relationship.',
+ svg:`<svg viewBox="0 0 600 420" role="img" aria-label="The square of opposition: A and E on top, I and O on the bottom, with diagonals between A and O and between E and I.">
+  ${ln('dAO',140,120,460,300)}${ln('dEI',460,120,140,300)}${ln('top',200,80,400,80)}${ln('bot',200,340,400,340)}${ln('lft',100,122,100,298)}${ln('rgt',500,122,500,298)}
+  <text id="tdia" x="300" y="215" text-anchor="middle" class="lbl" style="fill:var(--rj)" opacity="0">contradictories</text>
+  <text id="ttop" x="300" y="66" text-anchor="middle" class="lbl-m" style="font-weight:700;fill:var(--rj)" opacity="0">contraries</text>
+  <text id="tbot" x="300" y="372" text-anchor="middle" class="lbl-m" style="font-weight:700;fill:var(--rj)" opacity="0">subcontraries</text>
+  ${box('bA',100,80,'A','All of you','passed.')}${box('bE',500,80,'E','None of you','passed.')}${box('bI',100,340,'I','Some of you','passed.')}${box('bO',500,340,'O','Some of you','didn’t pass.')}
+  ${badge('tA',225,34)}${badge('tE',375,34)}${badge('tI',225,388)}${badge('tO',375,388)}
+ </svg>`,
+ steps:[
+  {title:'Four corners',see:'A square with the four sentences: A (All passed) and E (None passed) on top; I (Some passed) and O (Some didn’t pass) on the bottom.',why:'Same subject, same predicate, four strengths of claim. The lines between them show what each one tells you about the others.',set:{tdia:{opacity:0},ttop:{opacity:0},tbot:{opacity:0},dAO:{opacity:.35},dEI:{opacity:.35},top:{opacity:.35},bot:{opacity:.35},tAg:{opacity:0},tEg:{opacity:0},tIg:{opacity:0},tOg:{opacity:0}},focus:['bA','bE','bI','bO']},
+  {title:'Diagonal: A vs. O',see:'The diagonal from A to O darkens and is labeled “contradictories.” A gets an F badge; O gets a T.',why:'“All passed” and “Some didn’t pass” are <b>contradictories</b>: exactly one is true. If A is false, O must be true. That’s the teacher’s answer.',set:{dAO:{opacity:1},tdia:{opacity:1},tAg:{opacity:1},tOg:{opacity:1},tA:{text:'F',class:'lbl not'},tO:{text:'T',class:'lbl okt'}},focus:['dAO','bA','bO'],alt:'To deny “everyone passed,” you only have to say “not everyone did”: some didn’t.'},
+  {title:'Diagonal: E vs. I',see:'The other diagonal, E to I, darkens too. E gets a T, I gets an F.',why:'“None passed” and “Some passed” are also contradictories. Exactly one is true. If nobody passed, then it’s false that some did.',set:{dEI:{opacity:1},tAg:{opacity:0},tOg:{opacity:0},tEg:{opacity:1},tIg:{opacity:1},tE:{text:'T',class:'lbl okt'},tI:{text:'F',class:'lbl not'}},focus:['dEI']},
+  {title:'Top: contraries',see:'The top line glows: “contraries.” Both A and E show F. Both I and O show T.',why:'A and E <b>can’t both be true</b>, but they <b>can both be false</b>. When some passed and some didn’t, “all” and “none” are both wrong.',set:{dAO:{opacity:.35},dEI:{opacity:.35},tdia:{opacity:0},top:{opacity:1},ttop:{opacity:1},tAg:{opacity:1},tOg:{opacity:1},tA:{text:'F',class:'lbl not'},tE:{text:'F',class:'lbl not'},tI:{text:'T',class:'lbl okt'},tO:{text:'T',class:'lbl okt'}},focus:['top','bA','bE'],alt:'“Everyone loves pineapple pizza” vs. “No one does.” Both are false. That’s contraries.'},
+  {title:'Bottom: subcontraries',see:'The bottom line glows: “subcontraries.” I and O both stay T.',why:'I and O <b>can both be true</b> (some passed, some didn’t), but they <b>can’t both be false</b>. If “some passed” is false, then nobody passed, so “some didn’t” is true.',set:{top:{opacity:.35},ttop:{opacity:0},bot:{opacity:1},tbot:{opacity:1}},focus:['bot','bI','bO']},
+  {title:'One counterexample is enough',see:'Only the A-to-O diagonal is dark again. O shows T, A shows F.',why:'To sink an “all” claim, you don’t need “none.” You need its contradictory: <b>one</b> that isn’t. That’s why a single black swan, test result or exception can overturn a rule.',set:{bot:{opacity:.35},tbot:{opacity:0},dAO:{opacity:1},tdia:{opacity:1},tEg:{opacity:0},tIg:{opacity:0}},focus:['dAO','bO']}
+ ],
+ deep:[{t:'Go deeper: the empty-class problem',h:'<p>The traditional square assumes the group isn’t empty. “All unicorns have horns” and “Some unicorns have horns” come apart if there are no unicorns: modern logic counts the first as true (there’s no unicorn without a horn) and the second as false (there isn’t one). George Boole and later logicians dropped the parts of the square that need the group to exist. The diagonals, the contradictories, survive either way.</p>'}]},
+tryit:{kind:'square',title:'Try it: set one corner, see what follows',intro:'Tap a corner and say whether it’s true or false. The square fills in what must follow (T or F) and what stays unknown (?). Then take the quiz.',
+ help:{ask:'If you know one corner, what do the lines tell you about the others?',another:'Diagonals: exactly one true. Top (A, E): never both true. Bottom (I, O): never both false. Down the sides: if “all” is true, “some” is true.',start:'Start with the diagonal from the corner you picked: its partner is always the opposite.'}},
+why:{care:'People often answer an “all” claim with an equally extreme “none.” The square shows the smarter, smaller move: “not all.” It’s easier to prove and harder to argue with.',
+ meet:[{i:'🗣️',t:'Arguments with friends',h:'“Everyone at RJ hates the new schedule.” You don’t need “no one does”; you need one person who likes it.'},
+  {i:'🔬',t:'Science',h:'A rule like “all metals conduct electricity” stands until one counterexample is found. Then scientists rewrite the rule.'},
+  {i:'⚖️',t:'Law',h:'“The defendant never went to the store” is sunk by one receipt with his name on it.'}],
+ border:{t:'Humility built into logic',h:'The square has a quiet moral: universal claims (“all,” “none”) are bold and fragile; particular claims (“some”) are modest and sturdy. Ignatius of Loyola asked his retreatants to be quicker to save another person’s statement than to condemn it. The square gives a reason: one exception can undo a sweeping judgment, so sweeping judgments about people deserve special care.'}},
+terms:[{t:'Contradictories',d:'A–O and E–I: exactly one is true'},{t:'Contraries',d:'A–E: can’t both be true, can both be false'},{t:'Subcontraries',d:'I–O: can both be true, can’t both be false'},{t:'Counterexample',d:'a single case that makes an “all” or “none” claim false'}],
+test:[
+ {q:'What is the contradictory of “All RJ students like the new schedule”?',choices:['No RJ students like it','Some RJ students like it','Some RJ students don’t like it','All RJ students hate the new schedule'],answer:2,hint:'A’s contradictory sits across the diagonal.',why:'The contradictory of A (all) is O (some … not).'},
+ {q:'“No phone is waterproof” is false. What must be true?',choices:['All phones are waterproof','Some phones are waterproof','Some phones are not waterproof','Nothing follows'],answer:1,hint:'E’s diagonal partner.',why:'E and I are contradictories. If E is false, I is true.'},
+ {q:'Can “All dogs are friendly” and “No dogs are friendly” both be false?',choices:['Yes','No','Only for some breeds','Only if there are no dogs'],answer:0,hint:'They’re contraries.',why:'If some dogs are friendly and some aren’t, both are false.'},
+ {q:'Can “Some pizzas are vegetarian” and “Some pizzas are not vegetarian” both be true?',choices:['Yes','No','Only if all pizzas are vegetarian','Never'],answer:0,hint:'They’re subcontraries.',why:'Cheese pizza and pepperoni pizza make both true.'},
+ {q:'Someone says, “Every phone in this store is on sale.” What’s the least you need to show they’re wrong?',choices:['That no phone is on sale','That most phones aren’t on sale','One phone that isn’t on sale','That the store is closed'],answer:2,hint:'What’s the contradictory of “all”?',why:'One counterexample (an O statement) is enough to make an A statement false.'},
+ {q:'“Some of you didn’t pass” is true. What do you know about “All of you passed”?',choices:['It’s true','It’s false','It could be either','It’s the same claim'],answer:1,hint:'They sit on the same diagonal.',why:'O and A are contradictories: if O is true, A is false.'}
+]});
+})();
